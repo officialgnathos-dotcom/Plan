@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My 1-Year Plan — MMTN → Chatite</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  background: #0d0d0d;
+  color: #e8e8e8;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── TOP BANNER ── */
+.top-banner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-bottom: 3px solid #e94560;
+  padding: 28px 20px 22px;
+  text-align: center;
+}
+
+.top-banner h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.top-banner p {
+  color: #a0aec0;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.score-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.score-pill span { color: #f6c90e; }
+
+/* ── DAY TABS ── */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background: #111;
+  border-bottom: 2px solid #222;
+  padding: 0 8px;
+  gap: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  margin-bottom: -2px;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.tab:hover { color: #aaa; }
+.tab.active { color: #fff; border-bottom-color: #e94560; }
+
+/* ── PROGRESS ── */
+.progress-bar-wrap {
+  background: #111;
+  padding: 12px 16px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 8px;
+  background: #222;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e94560, #f6c90e);
+  border-radius: 4px;
+  transition: width 0.4s;
+  width: 0%;
+}
+
+.progress-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f6c90e;
+  min-width: 42px;
+  text-align: right;
+}
+
+/* ── CONTENT ── */
+.page { display: none; padding: 0 0 80px; }
+.page.active { display: block; }
+
+/* ── TIME BLOCK ── */
+.time-block {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.time-block-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 16px 14px;
+  gap: 14px;
+  cursor: default;
+}
+
+.time-tag {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.block-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.block-cat {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+.cat-fitness   { background: rgba(99,102,241,0.2); color: #818cf8; }
+.cat-skin      { background: rgba(236,72,153,0.15); color: #f472b6; }
+.cat-hair      { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.cat-face      { background: rgba(6,182,212,0.15); color: #22d3ee; }
+.cat-food      { background: rgba(34,197,94,0.15); color: #4ade80; }
+.cat-supps     { background: rgba(251,146,60,0.15); color: #fb923c; }
+.cat-sleep     { background: rgba(139,92,246,0.15); color: #a78bfa; }
+.cat-review    { background: rgba(255,255,255,0.08); color: #94a3b8; }
+
+/* ── STEPS LIST ── */
+.steps-list {
+  padding: 0 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.step-item:hover { border-color: #333; }
+.step-item.done { 
+  background: #0d1f0d; 
+  border-color: rgba(74,222,128,0.3); 
+}
+
+.step-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: transparent;
+  transition: all 0.2s;
+}
+
+.step-item.done .step-check {
+  background: #4ade80;
+  border-color: #4ade80;
+  color: #000;
+}
+
+.step-text {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.step-item.done .step-text {
+  color: #5a7a5a;
+  text-decoration: line-through;
+  text-decoration-color: #3a5a3a;
+}
+
+.step-note {
+  font-size: 12px;
+  color: #555;
+  margin-top: 3px;
+}
+
+.step-item.done .step-note { color: #3a4a3a; }
+
+/* ── DAY HEADER ── */
+.day-header {
+  padding: 20px 16px 6px;
+  border-bottom: 1px solid #1e1e1e;
+  margin-bottom: 4px;
+}
+
+.day-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.day-header p {
+  font-size: 13px;
+  color: #666;
+  margin-top: 3px;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  background: #111;
+  border-top: 1px solid #1e1e1e;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #444;
+  margin-top: 4px;
+}
+
+/* ── WARNING BOX ── */
+.warning-box {
+  margin: 0 16px 12px;
+  background: rgba(239,68,68,0.07);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #fca5a5;
+  line-height: 1.6;
+}
+
+.warning-box strong { color: #f87171; }
+
+/* ── NOTE BOX ── */
+.note-box {
+  margin: 0 16px 12px;
+  background: rgba(6,182,212,0.05);
+  border: 1px solid rgba(6,182,212,0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #67e8f9;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  <h1>🔥 MMTN → CHATITE PLAN</h1>
+  <p>Age 16 · All-in-one weekly routine · Repeat every week for 1 year</p>
+  <div class="score-row">
+    <div class="score-pill">Overall <span>9.2/10</span></div>
+    <div class="score-pill">Fitness <span>9.5/10</span></div>
+    <div class="score-pill">Skin <span>9.4/10</span></div>
+    <div class="score-pill">Face <span>9.0/10</span></div>
+    <div class="score-pill">Hair <span>9.3/10</span></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showDay('mon',this)">MON</button>
+  <button class="tab" onclick="showDay('tue',this)">TUE</button>
+  <button class="tab" onclick="showDay('wed',this)">WED</button>
+  <button class="tab" onclick="showDay('thu',this)">THU</button>
+  <button class="tab" onclick="showDay('fri',this)">FRI</button>
+  <button class="tab" onclick="showDay('sat',this)">SAT</button>
+  <button class="tab" onclick="showDay('sun',this)">SUN</button>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill"></div></div>
+  <div class="progress-label" id="prog-pct">0%</div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--              MONDAY                   -->
+<!-- ══════════════════════════════════════ -->
+<div class="page active" id="page-mon">
+  <div class="day-header">
+    <h2>Monday 💪</h2>
+    <p>Chest + Shoulders · Oil Hair Night · AHA/BHA Skin Night</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:00 AM</div>
+      <div><div class="block-title">Wake Up</div><span class="block-cat cat-sleep">Sleep/Recovery</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape — check nasal breathing was good all night</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Immediately put tongue flat on full palate (start mewing) — keep it there all day</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Splash cold water on face, pat dry (never rub)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:10 AM</div>
+      <div><div class="block-title">Breakfast</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">4 whole eggs (boiled or omelette) — protein + biotin for hair and skin</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 glass full-fat milk</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">6 walnuts — omega-3 + biotin + vitamin E</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 amla (fresh or juice) — Vitamin C for iron absorption + collagen</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1–2 tbsp peanut butter on bread — extra calories + biotin</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:25 AM</div>
+      <div><div class="block-title">Morning Supplements</div><span class="block-cat cat-supps">Supplements</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Vitamin C 500mg — take with amla juice</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Biotin 10,000mcg (HK Vitals) — for hair and skin</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Vitamin D3 2000IU — with food (needs fat to absorb)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Collagen Peptides 10g — stir into warm water or milk</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Iron 25mg (Carbamide Forte Ferrous Bisglycinate) — with Vitamin C food</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:40 AM</div>
+      <div><div class="block-title">Morning Skincare (8 min)</div><span class="block-cat cat-skin">Skincare</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 1:</strong> Chemist at Play AHA+PHA face wash — lukewarm water, 60 sec massage, rinse, pat dry gently</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 2:</strong> Pond's Hydra Miracle Gel — apply on slightly damp face, press in gently, don't rub</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 3:</strong> Minimalist SPF 50 — 2 finger-lengths for face + neck. NEVER skip even if staying home</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:55 AM</div>
+      <div><div class="block-title">Morning Face Structure (10 min)</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Cold water or chilled tea bags on closed eyes — 5 minutes (reduces puffiness, sharpens eye area)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Chin tucks × 20 reps — pull chin straight backward (creates double chin intentionally), hold 5 sec each. Tightens chin-neck angle</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Brow lowering × 15 reps — two fingers on eyebrows, push brows inward and slightly down against resistance, hold 5 sec. Builds hunter eyes</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gaze practice in mirror — 3 minutes. Brow slightly down, lower eyelid slightly up, jaw slightly clenched. This is how model photos work</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #1 — tongue full palate + suction cup press upward. 10 full minutes. Most important thing in this entire guide</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">💪 Workout — 7:10 AM (45–55 min)</div>
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">7:10 AM</div>
+      <div><div class="block-title">Day 1 — Chest + Shoulders</div><span class="block-cat cat-fitness">Fitness</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Incline Push-ups (hands on table/bed) — 3–4 sets × 8–15 reps</div><div class="step-note">If too easy: slow down reps or add backpack with books</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Floor Dumbbell Chest Press (1kg, lie on floor) — 3 sets × 12–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Pike Push-ups (downward dog position, bend arms to lower head) — 3 sets × 6–12 reps (knees bent if too hard)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Lateral Raises (raise arms straight out to sides) — 3 sets × 15–25 reps slowly</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Overhead Press (seated or standing) — 3 sets × 12–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Plank hold — 3 sets × 20–45 seconds</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Write today's reps in phone — compare with last week</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">☀️ Daytime — 8:30 AM onwards</div>
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">8:30 AM</div>
+      <div><div class="block-title">Falim Gum + Face Structure Block</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum — 45 min session while studying/on phone. Alternate sides every 10 min. Builds masseter jaw width</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygomatic (cheekbone) pulling — thumbs inside upper gum near molars, index fingers on cheekbone outside, pull outward + upward simultaneously. Hold 30–60 sec × 5–10 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Palate expansion — both thumbs on roof of mouth (one each side of center line), push outward. Hold 2–3 min × 3–5 sessions spread across day. Works only while you're 16–17, suture closes at 18</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #2 — another 10 min block</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">1:00 PM</div>
+      <div><div class="block-title">Lunch</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rice or 3–4 rotis — carbs for muscle fuel and calorie surplus</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dal or paneer or chicken — 30–40g protein this meal</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Full-fat curd — probiotics + calcium</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Spinach with tomato or lemon — always eat together (Vitamin C triples iron absorption)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Raw onion side — sulphur for hair growth</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Omega-3 2000mg with this meal</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">4:00 PM</div>
+      <div><div class="block-title">Afternoon Face Structure Block</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygomaticus training × 3 sets × 15 reps — pull corners of mouth backward and upward toward cheekbones, hold 5 sec. Feel cheekbone muscles working</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Cheek resistance × 15 reps — two fingers on cheekbones, try to smile upward AGAINST finger resistance</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Jaw clench sets × 3 sets × 20 reps — fingertips on masseter (side of jaw below cheekbone), clench hard and hold 5 sec, fully release</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eyelid resistance × 3 sets × 10 reps — finger gently on upper eyelid, open eye against resistance, then relax to heavy-lidded look, hold 5 sec</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">5:00 PM</div>
+      <div><div class="block-title">Evening Snack</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Handful of pumpkin seeds — zinc + natural DHT blocker for hair</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 banana + any fruit</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">7:30 PM</div>
+      <div><div class="block-title">Dinner</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">2 eggs + paneer or chicken — protein repair overnight</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1–2 rotis + mixed vegetables</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zinc 30mg (Zincovit) — take WITH food, never empty stomach. Controls DHT and acne</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">🌙 Night Routine — 9:00 PM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">9:00 PM</div>
+      <div><div class="block-title">Hair Oil Night — DIY Blend</div><span class="block-cat cat-hair">Hair</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Warm your oil bottle in hot water for 2–3 min. Warm oil penetrates 3× deeper</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply oil in sections: front hairline → top → left side → right side → back → nape. Not just the top</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Scalp massage with all 10 fingertip pads (NO nails). Press firmly in small circles — scalp should actually move over skull. Do front 1 min → temples 30 sec each → crown 1 min → back 1 min → nape 30 sec</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Finish: press fingers flat on scalp and lift upward × 10 times (creates negative pressure, more blood to follicles)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Cover with shower cap. Leave OVERNIGHT</div></div></div>
+    </div>
+    <div class="note-box">💡 DIY Oil Recipe (mix once, lasts 3–4 weeks): 50% Coconut oil + 20% Castor oil + 10% Bhringraj (Indulekha) + 10% Amla oil + 10% Rosemary EO + 8–10 drops Peppermint EO</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">9:20 PM</div>
+      <div><div class="block-title">Night Skincare — AHA/BHA Night (Mon + Thu)</div><span class="block-cat cat-skin">Skincare</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 1:</strong> Chemist at Play face wash — same as morning. Removes SPF, pollution, oil from the day</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 2:</strong> Minimalist 10% AHA BHA Exfoliator — 3–4 drops on COMPLETELY DRY skin. Wait 10 minutes before next step. Do NOT use on same night as Alpha Arbutin</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 3:</strong> Minimalist Multi-Peptides 10% — every single night without fail. Apply after treatment serum. Builds collagen</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 4:</strong> Pond's Hydra Miracle Gel — seal everything in</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">9:40 PM</div>
+      <div><div class="block-title">Night Face + Gua Sha (18 min)</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha with rose quartz + few drops jojoba oil: jaw (chin to ear, 10 strokes each side) → cheekbone (bottom of bone upward to temple, 10 strokes) → under chin (downward to neck, 10 strokes)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Head nod — lie flat, no pillow. Slowly tuck chin to chest lifting only your head. Hold 3 sec, lower slowly × 3 sets × 15 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Jaw jut — push lower jaw as far forward as possible, hold 10–15 sec × 3 sets × 10 reps (trains pterygoid muscles, builds chin projection)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #3 — final 10 min block for today</div></div></div>
+    </div>
+
+    <div class="warning-box"><strong>⚠️ BONE SMASHING — Monday night (from Month 3 onwards only)</strong><br>Only start after 3 months of softmax. Start at 10% force — lighter than you think. Use back of a smooth spoon.<br>• Cheekbone (zygo arch only — never near eye socket): tap lightly along bone from cheek toward ear, 2–3 min each side<br>• Jawline (lower jaw border, chin to jaw angle): tap along border, both sides equally, 2 min each side<br>• Stop IMMEDIATELY if any tingling, numbness, or sharp pain — those are nerve signals. Never smash near eyes.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">10:00 PM</div>
+      <div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply mouth tape (surgical tape ₹199) across lips — forces nasal breathing = passive mewing 8 hrs every night</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Use low pillow or no pillow — reduces neck forward posture</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Sleep on BACK only — no side sleeping (prevents face asymmetry)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Satin/silk pillowcase (₹299) — reduces hair breakage vs cotton. Change pillowcase twice this week</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Target 8–9 hours sleep. Growth hormone peaks 10 PM–2 AM. Skin repairs collagen at night</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--              TUESDAY                  -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-tue">
+  <div class="day-header">
+    <h2>Tuesday 💪</h2>
+    <p>Arms + Core · Nizoral Hair Wash · Alpha Arbutin Skin Night</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:00 AM</div><div><div class="block-title">Wake Up + Same Morning Block</div><span class="block-cat cat-sleep">Sleep/Recovery</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape. Start mewing immediately</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Breakfast: 4 eggs + milk + 6 walnuts + amla + peanut butter — same every single morning</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Morning supplements: Vitamin C 500mg + Biotin 10,000mcg + D3 2000IU + Collagen 10g + Iron 25mg</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:40 AM</div><div><div class="block-title">Hair Wash — Ketoconazole (Nizoral)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply Nizoral 2% shampoo to scalp — LEAVE ON 3–5 MINUTES (this is when DHT blocking happens, don't skip the wait)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rinse with lukewarm water, finish with cold water rinse (seals cuticle, instant shine)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Conditioner on MID-SHAFT TO ENDS only — never scalp (clogs follicles)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Pat dry with microfibre towel — no rubbing ever on wet hair</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Detangle with wide-tooth wooden comb starting from ENDS, work upward to roots — never roots down</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Air dry naturally — no heat</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:00 AM</div><div><div class="block-title">Morning Skincare + Face Structure</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Pond's gel → SPF 50 — same every morning</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eye depuff (cold water/tea bags 5 min) → chin tucks × 20 → brow lowering × 15 → gaze 3 min → mewing #1 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">💪 Workout — 7:20 AM (45 min)</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:20 AM</div><div><div class="block-title">Day 2 — Arms + Core</div><span class="block-cat cat-fitness">Fitness</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Diamond Push-ups (hands touching/close together) — 3 sets × 8–15 reps. Hits triceps hardest. Use incline if too hard</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Bicep Curls (1kg, standing) — 3 sets × 15–25 reps per arm. Go SLOW, squeeze hard at top</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Tricep Overhead Extensions (hold one dumbbell with both hands behind head, lower and raise) — 3 sets × 12–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Hammer Curls (palms facing inward toward each other) — 3 sets × 15–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Plank — 3 sets × 30–60 seconds</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Leg Raises (lie on floor, legs straight, lift to 90 degrees) — 3 sets × 10–15 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Russian Twists (sit, lean back 45 deg, twist side to side, hold dumbbell if possible) — 3 sets × 20 per side</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Log today's reps in phone</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">☀️ Daytime</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 AM</div><div><div class="block-title">Falim Gum + Face Structure + Neck Training</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum 45 min (while studying/watching) — alternate sides every 10 min</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygo pulling — 5–10 reps during break</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Palate expansion — 3–5 sessions × 2–3 min throughout day</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #2 — 10 min</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">NECK TRAINING (3× per week — Tue, Thu, Sat): Neck curls lying down 3×20 → Neck extensions lying face down 3×20 → Lateral neck raises (lie on side) 3×15 each side → Neck rotation against hand resistance 3×10 each side → Shrugs with water cans 3×20</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">1:00 PM</div><div><div class="block-title">Lunch + 4 PM Snack</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunch: rice/roti + dal/paneer/chicken + curd + spinach with tomato + raw onion + Omega-3 2000mg</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">4 PM snack: pumpkin seeds + banana/fruit</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">4:00 PM</div><div><div class="block-title">Egg + Curd Hair Mask (Weekly)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mix: 2 whole eggs + 3 tbsp curd + 1 tsp honey + 1 tsp castor oil</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply to scalp and full hair length. Put on shower cap. Leave 30–45 minutes</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rinse with COOL WATER ONLY — hot water will cook the eggs in your hair</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">🌙 Night — 9:00 PM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:30 PM</div><div><div class="block-title">Dinner + Zinc</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">High protein dinner: eggs/paneer/chicken + rotis + vegetables</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zinc 30mg with food</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:00 PM</div><div><div class="block-title">Night Skincare — Alpha Arbutin Night</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → pat completely dry → Minimalist Alpha Arbutin 2% (3–4 drops, press in gently — fades dark spots, blocks melanin) → Multi-Peptides 10% → Pond's gel</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:20 PM</div><div><div class="block-title">Night Face + Gua Sha + Bone Smashing</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha full face (same as Monday: jaw → cheekbone → underchin, 10 strokes each zone)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Head nod × 3 sets × 15 reps + jaw jut × 3 sets × 10 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #3 — 10 min</div></div></div>
+    </div>
+    <div class="warning-box"><strong>⚠️ BONE SMASHING — Tuesday (from Month 3): Brow ridge</strong><br>Smooth hard object on brow ridge ONLY — the horizontal bone above your eyebrow. NOT on eye socket rim or near eyes. Tap firmly, 1–2 min each side, 2–3× per week. Builds brow projection for hunter eyes.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">10:00 PM</div><div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mouth tape + low pillow + back sleeping + satin pillowcase — every single night</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--             WEDNESDAY                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-wed">
+  <div class="day-header">
+    <h2>Wednesday 😴</h2>
+    <p>REST DAY — Walk + Stretch · Dry Scalp Massage · Alpha Arbutin Skin</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:00 AM</div><div><div class="block-title">Morning Block (Same Every Day)</div><span class="block-cat cat-food">Food + Skin</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape → start mewing immediately</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Breakfast: 4 eggs + milk + 6 walnuts + amla + peanut butter</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Supplements: Vit C + Biotin + D3 + Collagen + Iron</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Pond's gel → SPF 50 (every single morning)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eye depuff → chin tucks × 20 → brow × 15 → gaze 3 min → mewing #1 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:00 AM</div><div><div class="block-title">Rest Day Activity</div><span class="block-cat cat-review">Recovery</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">20–30 min brisk walk — gets blood flowing, helps muscle recovery</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Full body stretch — 15 min. Chest, shoulders, legs, back</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Optional light core: 2 sets planks + 2 sets leg raises only</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">EAT BIG today — muscle grows on rest days, never reduce food</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">☀️ Daytime</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 AM</div><div><div class="block-title">Falim Gum + Face Structure (Every Day)</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum 45–60 min — alternate sides every 10 min while studying/on phone</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Palate expansion 3–5 sessions × 2–3 min (spread throughout day)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygo pulling 5–10 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #2 — 10 min</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">4:00 PM</div><div><div class="block-title">Dry Scalp Massage (No Oil Today)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">5 min dry scalp massage — all 10 fingertip pads, small circles. Same zones: front → temples → crown → back → nape</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">End with 10 upward scalp lifts for blood flow</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">4:15 PM</div><div><div class="block-title">Afternoon Face Structure</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygomaticus training × 3 sets × 15 + cheek resistance × 15 + jaw clench × 3 sets × 20 + eyelid resistance × 3 sets × 10</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Temporalis training — both palms flat on temples, clench jaw hard against palms. 3 sets × 20 reps (widens upper face)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">1:00 PM + 7:30 PM</div><div><div class="block-title">Lunch + Dinner</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunch: rice/roti + protein + curd + spinach + onion + Omega-3</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dinner: protein + rotis + veg + Zinc 30mg with food</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Snack: pumpkin seeds + banana</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">🌙 Night — 9:00 PM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:00 PM</div><div><div class="block-title">Night Skincare — Alpha Arbutin Night</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Alpha Arbutin 2% (3–4 drops on dry skin) → Multi-Peptides 10% → Pond's gel</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:20 PM</div><div><div class="block-title">Night Gua Sha + Exercises + Bone Smashing</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha (jaw → cheekbone → underchin, 10 strokes each)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Head nod × 3×15 + jaw jut × 3×10 + mewing #3 (10 min)</div></div></div>
+    </div>
+    <div class="warning-box"><strong>⚠️ BONE SMASHING — Wednesday (from Month 3): Chin</strong><br>Hard object on tip and lower border of chin. Moderate tapping — chin bone is the safest target (away from nerves + eyes). 2 min, 3× per week. Builds chin projection and squareness. Can also do pushing force forward against chin — compressive pressure method.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">10:00 PM</div><div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mouth tape + low pillow + back sleeping + satin pillowcase</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--              THURSDAY                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-thu">
+  <div class="day-header">
+    <h2>Thursday 💪</h2>
+    <p>Legs · Derma Roll + Oil Night · AHA/BHA Skin Night</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:00 AM</div><div><div class="block-title">Morning Block</div><span class="block-cat cat-food">Food + Skin</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape → mewing immediately</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Breakfast: 4 eggs + milk + 6 walnuts + amla + peanut butter</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Supplements: Vit C + Biotin + D3 + Collagen + Iron</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Pond's gel → SPF 50</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eye depuff → chin tucks × 20 → brow × 15 → gaze 3 min → mewing #1 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">💪 Workout — 7:10 AM (50 min)</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:10 AM</div><div><div class="block-title">Day 3 — Legs (NEVER skip — leg training boosts testosterone)</div><span class="block-cat cat-fitness">Fitness</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Bodyweight Squats (feet shoulder width, go as deep as possible) — 4 sets × 15–25 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunges (forward or walking) — 3 sets × 10–15 reps per leg</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Bulgarian Split Squats (rear foot on chair/bed) — 3 sets × 8–12 per leg. Start assisted if needed</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Calf Raises (stand on edge of step, rise on toes) — 3 sets × 20–30 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Glute Bridges (lie on back, thrust hips up, hold 2 sec at top) — 3 sets × 15–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Wall Sit (back flat on wall, slide to 90 degrees, hold) — 3 sets × 20–45 seconds</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Log reps in phone</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">☀️ Daytime</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 AM</div><div><div class="block-title">Falim Gum + Face Structure + Neck Training</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum 45 min + palate expansion 3–5 sessions + zygo pulling 5–10 reps + mewing #2 (10 min)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">NECK TRAINING (2nd session this week): neck curls 3×20 + extensions 3×20 + lateral raises 3×15 each + rotation 3×10 each + shrugs 3×20</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">1:00 PM + 5:00 PM</div><div><div class="block-title">Lunch + Snack</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunch: rice/roti + protein + curd + spinach + onion + Omega-3 2000mg</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Snack: pumpkin seeds + banana</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">🌙 Night — Big Night (Derma Roll + Oil)</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:30 PM</div><div><div class="block-title">Dinner + Zinc</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Protein dinner + rotis + veg + Zinc 30mg with food</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 PM</div><div><div class="block-title">🔥 Derma Roll + Oil (Best Hair Night of Week)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Sterilise 0.5mm derma roller with alcohol — wait 2–3 min to fully dry</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Roll scalp in 4 directions: horizontal × 10 passes → vertical × 10 → diagonal left × 10 → diagonal right × 10. Light pressure, not painful</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply warmed DIY oil blend IMMEDIATELY after rolling — micro-channels absorb oil 400% better</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Scalp massage 5 min after oil — maximise blood flow to stimulated follicles</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Shower cap. Leave overnight</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:00 PM</div><div><div class="block-title">Night Skincare — AHA/BHA Night (2nd of week)</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → AHA/BHA exfoliator (3–4 drops, dry skin, wait 10 min) → Multi-Peptides 10% → Pond's gel</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:20 PM</div><div><div class="block-title">Night Gua Sha + Exercises</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha full face + head nod 3×15 + jaw jut 3×10 + mewing #3 (10 min)</div></div></div>
+    </div>
+    <div class="warning-box"><strong>⚠️ BONE SMASHING — Thursday (from Month 3): Cheekbone repeat</strong><br>Zygo arch only. Tap lightly with back of spoon. 2–3 min each side. Build slowly over weeks. Start at 10% of what you think is right. Results take 4–6 months with consistent light sessions.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">10:00 PM</div><div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mouth tape + low pillow + back sleeping + satin pillowcase</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--               FRIDAY                  -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-fri">
+  <div class="day-header">
+    <h2>Friday 💪</h2>
+    <p>Back + Core · ACV/Caffeine Hair Wash · Alpha Arbutin Skin</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:00 AM</div><div><div class="block-title">Morning Block</div><span class="block-cat cat-food">Food + Skin</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape → mewing immediately</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Breakfast: 4 eggs + milk + 6 walnuts + amla + peanut butter</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Supplements: Vit C + Biotin + D3 + Collagen + Iron</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:25 AM</div><div><div class="block-title">Hair Wash — Caffeine Shampoo (Alpecin)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply Alpecin C1 Caffeine Shampoo to scalp — LEAVE ON 2 MINUTES (caffeine penetrates in exactly 2 min, stimulates follicle growth)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rinse, cold final rinse. Conditioner ends only. Pat dry microfibre. Air dry</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Optional: apply Pilgrim Redensyl serum / The Ordinary Multi-Peptide serum to dry scalp tonight (if you have it)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:50 AM</div><div><div class="block-title">Skincare + Face Structure</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Pond's gel → SPF 50</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eye depuff → chin tucks × 20 → brow × 15 → gaze 3 min → mewing #1 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">💪 Workout — 7:15 AM (50 min)</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">7:15 AM</div><div><div class="block-title">Day 4 — Back + Core + Upper Mix</div><span class="block-cat cat-fitness">Fitness</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Superman Holds (lie face down, lift arms + legs off floor simultaneously) — 3 sets × 10–15 reps, hold 3–5 sec each</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Inverted Rows (find sturdy table: lie underneath, grab edge, pull chest up to table) OR Dumbbell Rows (one hand + knee on chair, row dumbbell up to hip) — 3 sets × 8–12 / 12–20 per arm</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Front Raises (stand, raise arms straight forward to shoulder height) — 3 sets × 10–15 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dumbbell Rear Delt Fly (bend over 90 deg, raise both arms outward to sides like wings) — 3 sets × 15–20 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Bicycle Crunches — 3 sets × 15–20 per side</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Plank to Push-up (start in forearm plank, push up to full push-up, back down) — 3 sets × 8–12 reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Log reps in phone</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">☀️ Daytime + 🌙 Night</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 AM</div><div><div class="block-title">Falim Gum + Face Structure + Neck Training</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum 45 min + palate sessions + zygo pulling + mewing #2</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">NECK TRAINING (3rd and final session this week): full neck protocol — curls + extensions + lateral + rotation + shrugs</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Afternoon block: zygomaticus 3×15 + cheek resistance × 15 + jaw clench 3×20 + eyelid resistance 3×10</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">1:00 PM + 7:30 PM</div><div><div class="block-title">Lunch + Dinner</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunch: full meal + Omega-3. Dinner: protein + Zinc 30mg with food</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:00 PM</div><div><div class="block-title">Night Skincare — Alpha Arbutin + Night Face</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Alpha Arbutin 2% → Multi-Peptides 10% → Pond's gel</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha full face + head nod 3×15 + jaw jut 3×10 + mewing #3 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">10:00 PM</div><div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mouth tape + low pillow + back + satin pillowcase</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--              SATURDAY                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-sat">
+  <div class="day-header">
+    <h2>Saturday 😴</h2>
+    <p>REST DAY · Onion Juice Treatment · Inversion Method · Alpha Arbutin</p>
+  </div>
+
+  <div class="section-divider">🌅 Morning + Daytime</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">6:00 AM</div><div><div class="block-title">Morning Block</div><span class="block-cat cat-food">Food + Skin</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove tape → mewing → breakfast → supplements → AHA wash+gel+SPF → face exercises → mewing #1</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Walk 20–30 min + full body stretch. Eat big — rest days need full calories for muscle repair</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">8:30 AM</div><div><div class="block-title">Falim Gum + Face Structure + Neck Training</div><span class="block-cat cat-face">Face Structure</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum 45 min + palate sessions + zygo pulling + mewing #2</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Afternoon face block: zygomaticus + cheek resistance + jaw clench + eyelid resistance</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">3:00 PM</div><div><div class="block-title">🧅 Onion Juice Treatment (Weekly)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Blend 1 onion. Strain through cloth — only juice, no chunks (chunks will permanently stick in hair)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply juice directly to scalp with cotton ball. Put on shower cap</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Leave 30–45 minutes</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Wash out with Nizoral or Indulekha shampoo. Then conditioner on lengths</div></div></div>
+    </div>
+    <div class="note-box">💡 73% reduction in hair fall in clinical studies. Strong smell — do on Saturday when no plans. Hair is literally built from sulphur, which onion is full of.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">4:30 PM</div><div><div class="block-title">Inversion Method (1 week per month)</div><span class="block-cat cat-hair">Hair</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Oil your scalp. Then hang your head off the side of bed — face up, head pointing downward — for 4 minutes</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Do this every day for 7 consecutive days, once per month (e.g. always the first week of each month)</div></div></div>
+    </div>
+    <div class="warning-box">Skip inversion if you have low blood pressure, neck pain, or feel dizzy. Sit up slowly after.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">1:00 PM + 7:30 PM</div><div><div class="block-title">Lunch + Dinner</div><span class="block-cat cat-food">Food</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Lunch: rice/roti + protein + curd + spinach + onion + Omega-3. Dinner: protein + Zinc 30mg with food</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider">🌙 Night</div>
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">9:00 PM</div><div><div class="block-title">Night Skincare + Face</div><span class="block-cat cat-skin">Skincare</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">AHA face wash → Alpha Arbutin 2% → Multi-Peptides 10% → Pond's gel</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha + head nod 3×15 + jaw jut 3×10 + mewing #3 (10 min)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header"><div class="time-tag">10:00 PM</div><div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div></div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Mouth tape + low pillow + back + satin pillowcase</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!--               SUNDAY                  -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-sun">
+  <div class="day-header">
+    <h2>Sunday 🔄</h2>
+    <p>REST DAY · Banana Mask (biweekly) · Weekly Review · Prep for Next Week</p>
+  </div>
+
+  <!-- ───── MORNING ───── -->
+  <div class="section-divider">🌅 Morning — 6:00 AM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:00 AM</div>
+      <div><div class="block-title">Wake Up</div><span class="block-cat cat-sleep">Sleep/Recovery</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Remove mouth tape — check nasal breathing was good all night</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Immediately put tongue flat on full palate (start mewing) — keep it there all day. Rest day = maximum mewing opportunity, no distractions</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Splash cold water on face — pat dry gently with clean towel (never rub)</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:10 AM</div>
+      <div><div class="block-title">Breakfast</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">4 whole eggs (boiled or omelette) — protein + biotin for hair and skin repair after a full week of training</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 glass full-fat milk — calcium + protein</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">6 walnuts — Omega-3 + Biotin + Vitamin E (anti-inflammatory on rest day)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 amla (fresh or juice) — Vitamin C boosts iron absorption + collagen</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1–2 tbsp peanut butter on bread — extra calories. Rest days still need full calories for muscle and tissue repair</div></div></div>
+    </div>
+    <div class="note-box">💡 Don't under-eat on rest days. Your muscles, skin, and hair repair and GROW on rest — feed that process.</div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:25 AM</div>
+      <div><div class="block-title">Morning Supplements</div><span class="block-cat cat-supps">Supplements</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Vitamin C 500mg — take with amla juice. Never skip even on rest days</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Biotin 10,000mcg (HK Vitals) — daily supplement for hair + skin, no rest day off</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Vitamin D3 2000IU — take with fatty food (needs fat to absorb into body)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Collagen Peptides 10g — stir into warm water or warm milk. Collagen synthesis peaks on rest days</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Iron 25mg (Carbamide Forte Ferrous Bisglycinate) — always with Vitamin C meal. Ferrous bisglycinate = least constipating form</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:40 AM</div>
+      <div><div class="block-title">Morning Skincare (8 min)</div><span class="block-cat cat-skin">Skincare</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 1:</strong> Chemist at Play AHA+PHA face wash — wet face with lukewarm water, massage 60 sec, rinse fully, pat dry gently</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 2:</strong> Pond's Hydra Miracle Gel — apply on slightly damp face, press in gently with fingertips, never rub or drag</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 3:</strong> Minimalist SPF 50 — 2 finger-lengths, spread across face + neck. NEVER skip even at home. UV damage happens indoors too through windows</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">6:55 AM</div>
+      <div><div class="block-title">Morning Face Structure (10 min)</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Cold water or chilled tea bags on closed eyes — 5 minutes. Reduces puffiness, sharpens eye area instantly</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Chin tucks × 20 reps — pull chin STRAIGHT backward (creates a double chin intentionally), hold 5 sec each. Tightens the chin-neck angle over weeks</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Brow lowering × 15 reps — place two fingers on eyebrows, push brows inward and slightly down against resistance, hold 5 sec. Builds the hunter-eye look</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gaze practice in mirror — 3 minutes. Brow slightly down, lower eyelid slightly up, jaw slightly clenched. This is how model photos work — practice the expression until it's natural</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #1 — tongue FULLY on palate (not just tip), suction cup press upward. 10 full minutes. Rest day = no rush, best time to do it right</div></div></div>
+    </div>
+  </div>
+
+  <!-- ───── REST + WALK ───── -->
+  <div class="section-divider">🚶 Active Recovery — 7:15 AM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">7:15 AM</div>
+      <div><div class="block-title">Walk + Full Body Stretch</div><span class="block-cat cat-fitness">Fitness</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Walk 25–35 min outdoors — light pace, no rush. Gets blood flowing to muscles + scalp without breaking them down further. Sunlight = natural Vitamin D boost</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Full body stretch on return — hold each position 30+ sec: hamstrings, hip flexors, chest opener, neck side stretch, thoracic rotation. Improves posture = better jawline + neck appearance</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Posture check during walk — chin parallel to ground, shoulders back and down, chest open. Walking with good posture trains it into your default</div></div></div>
+    </div>
+    <div class="note-box">💡 Sunday walk is NOT skippable. Active recovery reduces DOMS and increases growth hormone by 20–30% compared to full couch rest.</div>
+  </div>
+
+  <!-- ───── DAYTIME ───── -->
+  <div class="section-divider">☀️ Daytime — 8:30 AM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">8:30 AM</div>
+      <div><div class="block-title">Falim Gum + Face Structure Block</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Falim gum — 45 min session while relaxing/watching/studying. Alternate chewing sides every 10 min. This is your 7th session of the week — jaw gets a full weekly stimulus today too</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygomatic (cheekbone) pulling — thumbs inside upper gum near molars, index fingers on cheekbone outside, pull outward + upward simultaneously. Hold 30–60 sec × 5–10 reps. You have time on Sunday, do it slowly and correctly</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Palate expansion — both thumbs on roof of mouth (one each side of center line), push outward. Hold 2–3 min × 3–5 sessions spread across the day. CRITICAL: works only while 16–17. Suture closes at 18. Do not miss these sessions</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #2 — another dedicated 10 min block. No gym today so your energy goes here</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">10:00 AM</div>
+      <div><div class="block-title">Afternoon Face Structure Block</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zygomaticus training × 3 sets × 15 reps — pull corners of mouth backward and upward toward cheekbones, hold 5 sec. Feel the cheekbone muscle working, not just your lip</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Cheek resistance × 15 reps — two fingers flat on cheekbones, try to smile upward AGAINST finger resistance. Hold 5 sec per rep</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Jaw clench sets × 3 sets × 20 reps — fingertips on masseter (side of jaw below cheekbone), clench hard and hold 5 sec, fully release between reps</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Eyelid resistance × 3 sets × 10 reps — finger gently on upper eyelid, open eye against resistance, then relax to heavy-lidded look, hold 5 sec. Trains orbicularis muscle for hunter-eye appearance</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">1:00 PM</div>
+      <div><div class="block-title">Lunch</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rice or 3–4 rotis — carbs for muscle glycogen refill (rest day is when muscles reload glycogen)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Dal or paneer or chicken — 30–40g protein this meal. Muscle repair peaks on rest day</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Full-fat curd — probiotics for gut health (gut health = skin health)</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Spinach with tomato or lemon — eat together always. Vitamin C triples iron absorption from the spinach</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Raw onion on the side — sulphur compound for hair growth + blood flow to scalp</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Omega-3 2000mg with this meal — anti-inflammatory, supports skin barrier and hair health</div></div></div>
+    </div>
+  </div>
+
+  <!-- ───── HAIR MASK ───── -->
+  <div class="section-divider">🍌 Hair Treatment — 4:00 PM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">4:00 PM</div>
+      <div><div class="block-title">🍌 Banana + Honey Mask (Every 2nd Sunday)</div><span class="block-cat cat-hair">Hair</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Take 1 very ripe banana (riper = smoother) — blend completely in a blender until it is a smooth liquid, zero lumps. This is critical: even tiny chunks will stick permanently in hair strands and cannot be removed by washing</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Strain the blended banana through a fine cloth or strainer — only the smooth liquid passes through. Discard any remaining pulp</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Add to the strained liquid: 1 tbsp raw honey (antimicrobial + moisture) + 1 tbsp coconut oil (seals cuticle + prevents breakage). Mix well</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply ONLY to mid-shaft and ends of hair — NOT the scalp. This mask is a deep conditioner for the hair strand, not a scalp treatment</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Put on a shower cap to trap heat. Leave exactly 20 minutes — timer it</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Rinse thoroughly with cool water. Then shampoo lightly with Indulekha or Nizoral. Cold final rinse to seal the cuticle</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Pat dry with microfibre towel — no rubbing on wet hair ever. Air dry naturally, no heat</div></div></div>
+    </div>
+    <div class="note-box">💡 On non-banana Sundays (alternate weeks): do a 5 min dry scalp massage with fingertip pads only — increases blood flow to follicles without adding product.</div>
+  </div>
+
+  <!-- ───── EVENING SNACK ───── -->
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">5:00 PM</div>
+      <div><div class="block-title">Evening Snack</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Handful of pumpkin seeds — zinc + natural DHT blocker + magnesium. Eat raw, not roasted</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1 banana + any seasonal fruit — potassium + natural sugars for energy without spiking insulin hard</div></div></div>
+    </div>
+  </div>
+
+  <!-- ───── WEEKLY REVIEW ───── -->
+  <div class="section-divider">📊 Weekly Review — 5:30 PM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">5:30 PM</div>
+      <div><div class="block-title">📊 Weekly Progress Review (30 min)</div><span class="block-cat cat-review">Review</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">FITNESS — Open your phone notes and log every exercise from this week: exact reps and sets for push-ups, curls, squats, rows. Compare to last Sunday's log. Did any number go up? That is progressive overload happening. Note which exercises feel hardest</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">PROGRESS PHOTOS — Take 3 photos in the same lighting as last week: (1) front face, (2) side face/jaw, (3) front body. Save with date in filename. Never rely on memory — the camera catches what your eyes miss</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">SKIN CHECK — Look closely in good lighting. Is it clearer than 2 weeks ago? Less oily? Any purging (small bumps from AHA/BHA = normal for first 6 weeks)? Any allergic reaction (redness, burning = stop that product)? Note what is working</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">HAIR CHECK — Lean into the bathroom mirror and look at your hairline closely. Any new tiny baby hairs? Is shedding in the shower less than 3 weeks ago? Run fingers through hair — does it feel thicker or the same? Results take 8–12 weeks, trust the process</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">FACE STRUCTURE CHECK — Compare side-by-side photos of jaw and cheek area from week 1 vs now. Look for sharper jaw angle, subtle cheekbone definition, or improved chin projection. These changes are slow but they accumulate</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">SUPPLEMENT STOCK — Count remaining tablets of: Biotin, Vitamin C, D3, Iron, Collagen, Zinc. If any will run out before next Sunday, order tonight so you never miss a day</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">NEXT WEEK PREP — Check if it is the first week of the month (Inversion Method starts). Do you have Falim gum, Nizoral, and oil blended and ready? Set up everything so Monday morning runs with zero friction</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">PILLOWCASE — Change pillowcase tonight (change schedule: Sunday + Wednesday every week). Dirty pillowcase = acne from bacteria buildup overnight, 8 hours of face contact</div></div></div>
+    </div>
+    <div class="note-box">💡 The weekly review is what separates people who transform in a year from people who stay the same. You are tracking a body renovation — treat it with the same seriousness as a business you are building.</div>
+  </div>
+
+  <!-- ───── DINNER ───── -->
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">7:30 PM</div>
+      <div><div class="block-title">Dinner</div><span class="block-cat cat-food">Food</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">2 eggs + paneer or chicken — protein repair for muscle tissue and collagen overnight</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">1–2 rotis + mixed vegetables — complex carbs + micronutrients</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Zinc 30mg (Zincovit) — take WITH food, never on empty stomach. Controls DHT and fights acne. Final supplement of the week</div></div></div>
+    </div>
+  </div>
+
+  <!-- ───── NIGHT ───── -->
+  <div class="section-divider">🌙 Night Routine — 9:00 PM</div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">9:00 PM</div>
+      <div><div class="block-title">Night Skincare — Alpha Arbutin Night</div><span class="block-cat cat-skin">Skincare</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 1:</strong> Chemist at Play AHA face wash — wash off the full day's SPF, sweat, and pollution. 60 sec massage, rinse, pat dry completely</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 2:</strong> Minimalist Alpha Arbutin 2% — 3–4 drops on dry skin, press in gently. Blocks melanin production. Fades dark spots, hyperpigmentation, and post-acne marks over 8–12 weeks. Do NOT use on same night as AHA/BHA — tonight is Alpha Arbutin only</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 3:</strong> Minimalist Multi-Peptides 10% — every single night without exception. Apply after Alpha Arbutin. Signals skin to build collagen. The most underrated step in the entire plan</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text"><strong>Step 4:</strong> Pond's Hydra Miracle Gel — seal all actives in. Press gently, no rubbing</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">9:20 PM</div>
+      <div><div class="block-title">Night Face + Gua Sha (18 min)</div><span class="block-cat cat-face">Face Structure</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Gua sha with rose quartz + a few drops jojoba oil on skin — always use oil so the tool glides, never drags dry skin. Routine: jaw (chin to ear, 10 strokes each side) → cheekbone (bottom of bone upward to temple, 10 strokes) → under chin (downward strokes to neck, 10 strokes). Firm pressure, slow strokes</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Head nod — lie flat on floor with NO pillow. Slowly tuck chin to chest lifting only your head off the floor. Hold 3 sec. Lower slowly back. × 3 sets × 15 reps. Strengthens neck flexors = sharper chin-neck angle</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Jaw jut — push lower jaw as far forward as possible (as if trying to touch nose with chin), hold 10–15 sec. × 3 sets × 10 reps. Trains pterygoid muscles = more chin projection over months</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Hard mewing session #3 — final 10 min of the week. Tongue full palate, suction press upward, teeth lightly touching, lips sealed, breathe through nose. End the week strong</div></div></div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-block-header">
+      <div class="time-tag">10:00 PM</div>
+      <div><div class="block-title">Sleep Setup</div><span class="block-cat cat-sleep">Sleep</span></div>
+    </div>
+    <div class="steps-list">
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Apply mouth tape (surgical tape) across lips before sleeping — forces nasal breathing = passive mewing for 8 hrs every night. This alone is one of the highest-leverage habits in this plan</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Use low pillow or no pillow — reduces neck forward posture that builds up over months of bad sleeping</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Sleep on BACK only — side sleeping compresses one cheek and jaw asymmetrically over hundreds of nights. Back sleeping preserves facial symmetry</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Fresh satin/silk pillowcase (just changed tonight) — satin vs cotton reduces hair breakage by 40%, less face crease, less moisture absorption from skin</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Target 8–9 hours sleep — growth hormone peaks 10 PM–2 AM. Skin repairs and builds collagen at night. Hair grows faster during sleep. You cannot out-supplement bad sleep</div></div></div>
+      <div class="step-item" onclick="check(this)"><div class="step-check">✓</div><div><div class="step-text">Close your eyes knowing: 1 full week done. Every rep, every serum, every mewing session is compounding silently inside your body. 52 of these = Chatite. You are building it right now.</div></div></div>
+    </div>
+    <div class="note-box">💡 Sleep is not optional recovery — it IS the transformation. Every supplement and workout only works if sleep is 8+ hours.</div>
+  </div>
+</div>
+
+
+<script>
+function showDay(day, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + day).classList.add('active');
+  btn.classList.add('active');
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function check(el) {
+  el.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const activePage = document.querySelector('.page.active');
+  if (!activePage) return;
+  const all = activePage.querySelectorAll('.step-item').length;
+  const done = activePage.querySelectorAll('.step-item.done').length;
+  const pct = all ? Math.round((done / all) * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+}
+
+updateProgress();
+</script>
+</body>
+</html>
